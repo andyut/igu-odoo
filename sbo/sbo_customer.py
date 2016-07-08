@@ -13,6 +13,8 @@ def getCustomer():
 
     return reader
 
-print getCustomer()
+for eachkey in  getCustomer():
+    print eachkey
+
 
 
