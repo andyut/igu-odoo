@@ -3,7 +3,7 @@ import csv
 
 
 
-def getCustomer():
+def getcustomer():
     # AMBIL DATA CUSTOMER
     url = requests.get('http://192.168.1.171/iguwebapps/app/SR_getCustomerOutlet.asp')
     test = url.iter_lines()
