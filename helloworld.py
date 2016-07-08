@@ -1,5 +1,7 @@
 from bottle import route, run, template
 
+
+
 @route('/')
 def index():
     return template('menu.tpl' )
