@@ -1,6 +1,7 @@
 from  xmlrpclib import ServerProxy
 import datetime
 
+dat
 # data source  from
 db = 'saranakulina-demo-20160520'
 url = 'http://139.0.20.155:8069'
@@ -44,8 +45,6 @@ print oact_idsx
 for eachkey in oact_ids:
      data  = objects2.execute_kw(db2,uid2,pwd2, 'account.account','search',[[['code','=',eachkey['code']]]])
      print eachkey
-     if len(data)==0:
-         print data
          objects2.execute_kw(db2,uid2,pwd2,
                              'account.account','create',
                              [
