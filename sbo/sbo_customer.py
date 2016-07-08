@@ -13,8 +13,11 @@ def getCustomer():
 
     return reader
 
-for eachkey in  getCustomer():
-    print eachkey
+
+def getProduct():
+     url = requests.get('http://192.168.1.171/iguwebapps/app/Produk/tranM30r-data.asp')
 
 
-
+    test = url.iter_lines()
+    reader = csv.reader(test, delimiter=';')
+    return reader
