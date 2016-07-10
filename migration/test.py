@@ -1,8 +1,5 @@
 import xmlrpclib
 
-
-
-
 common = xmlrpclib.ServerProxy('{}/xmlrpc/2/common'.format(url))
 #CEK KONEKSI DAN VERSI ODOO
 #print common.version()
