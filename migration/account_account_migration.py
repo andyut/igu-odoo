@@ -1,20 +1,20 @@
 from  xmlrpclib import ServerProxy
 import datetime
 
-dat
+
 # data source  from
-db = 'saranakulina-demo-20160520'
-url = 'http://139.0.20.155:8069'
+db = 'ibom-live'
+url = 'http://192.168.1.131:8069'
 usr = 'admin'
 pwd = 'Indoguna2016'
 
 
 # data source  to
 
-db2 = 'sr-live'
-url2 = 'http://192.168.1.131:8069'
-usr2 = 'admin'
-pwd2 = 'Indoguna2016'
+db2 = 'srlive'
+url2 = 'http://139.0.20.155:8069'
+usr2 = 'andyut@indoguna.co.id'
+pwd2 = 'Indoguna2015'
 
 
 #########################
@@ -45,16 +45,18 @@ print oact_idsx
 for eachkey in oact_ids:
      data  = objects2.execute_kw(db2,uid2,pwd2, 'account.account','search',[[['code','=',eachkey['code']]]])
      print eachkey
+     if len(data)==0:
+
          objects2.execute_kw(db2,uid2,pwd2,
-                             'account.account','create',
-                             [
-                                 {'code':eachkey['code'],
-                                 'name':eachkey['name'] ,
-                                 'internal_type':eachkey['internal_type'],
-                                 'user_type_id':eachkey['user_type_id'][0],
-                                 'display_name':eachkey['display_name'],
-                                 'reconcile':eachkey['reconcile']}
-                              ])
+                                 'account.account','create',
+                                 [
+                                     {'code':eachkey['code'],
+                                     'name':eachkey['name'] ,
+                                     'internal_type':eachkey['internal_type'],
+                                     'user_type_id':eachkey['user_type_id'][0],
+                                     'display_name':eachkey['display_name'],
+                                     'reconcile':eachkey['reconcile']}
+                                  ])
      else:
          print 'Already Exist '
          print data
