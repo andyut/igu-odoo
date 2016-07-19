@@ -3,19 +3,19 @@ from  xmlrpclib import ServerProxy
 import csv
 
 
-url = requests.get('http://192.168.1.171/iguwebapps/app/SR_getCustomerOutlet.asp')
+url = requests.get('http://192.168.1.171/iguwebapps/app/SR_getCustomerCompany.asp')
 
-usr = 'admin'
-pwd = 'Indoguna2016'
-db = 'sr-live'
+usr = 'andyut@indoguna.co.id'
+pwd = 'Indoguna2015'
+db = 'srlive'
 
 
-common = ServerProxy('http://192.168.1.131:8069/xmlrpc/2/common')
+common = ServerProxy('http://139.0.20.155:8069/xmlrpc/2/common')
 
 uid = common.authenticate(db,usr,pwd,{})
 print uid
 
-objects = ServerProxy('http://192.168.1.131:8069/xmlrpc/2/object')
+objects = ServerProxy('http://139.0.20.155:8069/xmlrpc/2/object')
 
 
 test = url.iter_lines()
