@@ -3,18 +3,18 @@ import datetime
 
 
 # data source  from
-db = 'ibom-live'
-url = 'http://192.168.1.131:8069'
+db = 'saranakulina-demo'
+url = 'http://139.0.20.154:8069'
 usr = 'admin'
-pwd = 'Indoguna2016'
+pwd = 'admin'
 
 
 # data source  to
 
-db2 = 'srlive'
+db2 = 'ibom'
 url2 = 'http://139.0.20.155:8069'
-usr2 = 'andyut@indoguna.co.id'
-pwd2 = 'Indoguna2015'
+usr2 = 'admin'
+pwd2 = 'Indoguna2016'
 
 
 #########################

@@ -5,8 +5,8 @@ from datetime import datetime
 
 so_number=''
 
-url_header = requests.get('http://192.168.1.171/iguwebapps/app/IGU_getSOHeader_today.asp')
-url_detail = requests.get('http://192.168.1.171/iguwebapps/app/IGU_getSODetail_today.asp?docnum={}'.format(so_number))
+url_header = requests.get('http://192.168.1.171/iguwebapps/app/IGU_getPOHeader_today.asp')
+url_detail = requests.get('http://192.168.1.171/iguwebapps/app/IGU_getPODetail_today.asp?docnum={}'.format(so_number))
 
 
 db = 'ibom'
@@ -19,7 +19,7 @@ common = ServerProxy('{}/xmlrpc/2/common'.format(url))
 # print common.version()
 # BUAT DATAPATKAN AUTHENTIKASI USER LOGIN ( UID )
 
-uid = common.authenticate(db,usr,pwd,{}n
+uid = common.authenticate(db,usr,pwd,{})
 # print 'User session',uid
 
 
@@ -32,17 +32,19 @@ test = url_header.iter_lines()
 reader = csv.reader(test, delimiter='\t')
 
 for eachkey in reader:
-    print eachkey
-    url_detail = requests.get('http://192.168.1.171/iguwebapps/app/IGU_getSODetail_today.asp?docnum={}'.format(eachkey[11]))
+    url_detail = requests.get('http://192.168.1.171/iguwebapps/app/IGU_getPODetail_today.asp?docnum={}'.format(eachkey[11]))
 
     testDetail = url_detail.iter_lines()
     readerDetail = csv.reader(testDetail,delimiter='\t')
-    customer = objects.execute_kw(db,uid,pwd, 'res.partner','search',[[['customer','=',1],['ref','=',eachkey[2]]]])
+    customer = objects.execute_kw(db,uid,pwd, 'res.partner','search',[[['ref','like',eachkey[2]]]])
+    print eachkey
+    print eachkey[2],customer
     customer_ids = objects.execute_kw(db,uid,pwd,'res.partner','read',[customer],{'fields':['name','street']})
+
     if len(customer_ids) != 0:
 
-        sales_order_header= objects.execute_kw(db,uid,pwd,'sale.order','create',[
-            {'partner_id': customer_ids[0].get('id'),'validity_date':eachkey[8],
+        sales_order_header= objects.execute_kw(db,uid,pwd,'purchase.order','create',[
+            {'partner_id': customer_ids[0].get('id'),'date_order':eachkey[8],
              'name':eachkey[11],'client)order_ref':eachkey[12],
              'display_name':eachkey[11]}])
         print sales_order_header
@@ -53,9 +55,9 @@ for eachkey in reader:
             if len(product_ids) != 0 :
 
                 print sales_order_header,EachKeyDetail[4],product_ids[0].get('uom_id')[0],EachKeyDetail[5],EachKeyDetail[8]
-                objects2.execute_kw(db,uid,pwd,'sale.order.line','create',[
+                objects2.execute_kw(db,uid,pwd,'purchase.order.line','create',[
                     {
-                        'order_id':sales_order_header,
+                        'purchase_id':sales_order_header,
                         'name':EachKeyDetail[4],
                         'product_id':product_ids[0].get('id'),
                         'product_uom':product_ids[0].get('uom_id')[0],

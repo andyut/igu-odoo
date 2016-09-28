@@ -3,7 +3,7 @@ from  xmlrpclib import ServerProxy
 import csv
 
 
-url = requests.get('http://192.168.1.171/iguwebapps/app/obp01-data.asp')
+url = requests.get('http://192.168.1.171/iguwebapps/apP/obp01-datavendor.asp')
 
 usr = 'admin'
 pwd = 'Indoguna2016'
@@ -19,7 +19,7 @@ objects = ServerProxy('http://139.0.20.155:8069/xmlrpc/2/object')
 
 
 test = url.iter_lines()
-reader = csv.reader(test, delimiter=';')
+reader = csv.reader(test, delimiter='\t')
 
 for eachkey in reader:
     if len(eachkey)!=0:
@@ -31,16 +31,16 @@ for eachkey in reader:
                                        'ref':eachkey[1],
                                        'name':eachkey[3],
                                        'street':eachkey[6],
-                                       'supplier':0,
+                                       'supplier':1,
                                        'x_delivery_route':eachkey[11],
-                                       'customer':1}
+                                       'customer':0}
             print objects.execute_kw(db,uid,pwd,
                                     'res.partner','create',
                                      [{'comment':eachkey[2],
                                        'ref':eachkey[1],
                                        'name':eachkey[3],
                                        'street':eachkey[6],
-                                       'supplier':0,
+                                       'supplier':1,
                                        'x_delivery_route':eachkey[11],
-                                       'customer':1}])
+                                       'customer':0}])
 
