@@ -6,16 +6,16 @@ import csv
 url = requests.get('http://192.168.1.171/iguwebapps/app/Produk/tranM30r-data.asp')
 
 usr = 'admin'
-pwd = 'Indoguna2016'
-db = 'ibom'
+pwd = 'admin'
+db = 'bku-live-traning'
 
 
-common = ServerProxy('http://139.0.20.155:8069/xmlrpc/2/common')
+common = ServerProxy('http://139.0.20.157:6542/xmlrpc/2/common')
 
 uid = common.authenticate(db,usr,pwd,{})
 print uid
 
-objects = ServerProxy('http://139.0.20.155:8069/xmlrpc/2/object')
+objects = ServerProxy('http://139.0.20.157:6542/xmlrpc/2/object')
 
 
 test = url.iter_lines()
@@ -25,11 +25,12 @@ for eachkey in reader:
     if len(eachkey)!=0:
         #print eachkey[0],eachkey[1],eachkey[17],eachkey[16],eachkey[8]
         chk_data=  objects.execute_kw(db,uid,pwd, 'product.template','search',[[['default_code','=',eachkey[0]]]])
+        print eachkey
         if len(chk_data)==0:
             print objects.execute_kw(db,uid,pwd,
                                      'product.template',
                                      'create',
-                                     [{'name':eachkey[1],'default_code':eachkey[0],
+                                     [{'name':eachkey[1],'default_code':eachkey[0],'barcode':eachkey[0],
                                        'standard_price':eachkey[8],
                                        'qty_available':eachkey[6]}])
         #else :
